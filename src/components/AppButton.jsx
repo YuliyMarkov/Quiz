@@ -6,7 +6,7 @@ export const AppButton = ({ buttonText, buttonType, isDisabled, buttonClick }) =
       disabled={isDisabled}
       type={buttonType === "submit" ? "submit" : "button"}
       id="next-btn"
-      onClick={buttonClick} 
+      onClick={buttonClick}
     >
       {buttonText}
     </button>

@@ -12,7 +12,7 @@ export const AppLabel = ({
   hasError,
 }) => {
   return (
-    <label className={`input-wrapper ${hasError && "_error"}`} htmlFor="id">
+    <label className={`input-wrapper ${hasError ? "_error" : ""}`} htmlFor={id}>
       {labelText}
       <input
         value={labelValue}
@@ -20,7 +20,7 @@ export const AppLabel = ({
         type={inputType}
         name={id}
         id={id}
-        onChange={(e)=>labelChange(e.target.valur)}
+        onChange={(e) => labelChange(e.target.value)}
         placeholder={inputPlaceholder}
       />
       {hasError && <span id="error-message">{errorText}</span>}
