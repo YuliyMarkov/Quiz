@@ -4,15 +4,15 @@ import { AppLabel } from "../components/AppLabel";
 import { AppButton } from "../components/AppButton";
 
 const Welcome = () => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Регулярное выражение для проверки email
+  const emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+  const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/; // Пример регулярного выражения для сложного пароля
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const [passwordAgainValue, setPasswordAgainValue] = useState("");
-
+  
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
-  const [passwordMatchError, setPasswordMatchError] = useState(false);
-
+  const [passwordAgainError, setPasswordAgainError] = useState(false);
   const [checkBtn, setCheckBtn] = useState(true);
 
   const handleClick = () => {
@@ -22,28 +22,26 @@ const Welcome = () => {
       setEmailError(false);
     }
 
-    if (passwordValue.length < 8) {
+    if (!passwordRegex.test(passwordValue)) {
       setPasswordError(true);
     } else {
       setPasswordError(false);
     }
 
-    // Проверка совпадения паролей
     if (passwordValue !== passwordAgainValue) {
-      setPasswordMatchError(true);
+      setPasswordAgainError(true);
     } else {
-      setPasswordMatchError(false);
+      setPasswordAgainError(false);
     }
   };
 
   useEffect(() => {
-    // Разблокировка кнопки, если все поля заполнены
-    if (emailValue && passwordValue && passwordAgainValue) {
+    if (emailValue && passwordValue && passwordAgainValue && !passwordError && !passwordAgainError) {
       setCheckBtn(false);
     } else {
       setCheckBtn(true);
     }
-  }, [emailValue, passwordValue, passwordAgainValue]);
+  }, [emailValue, passwordValue, passwordAgainValue, passwordError, passwordAgainError]);
 
   return (
     <div className="container">
@@ -54,7 +52,7 @@ const Welcome = () => {
             <AppLabel
               labelText="Введите адрес электронной почты"
               inputPlaceholder="example@email.uz"
-              errorText="Введите корректный адрес электронной почты"
+              errorText="Введите адрес электронной почты"
               inputType="text"
               id="email"
               isRequired
@@ -65,10 +63,9 @@ const Welcome = () => {
             <AppLabel
               labelText="Введите пароль"
               inputPlaceholder="Придумайте пароль"
-              errorText="Пароль должен быть не менее 8 символов"
+              errorText="Пароль слишком простой"
               inputType="password"
               id="password"
-              isRequired
               labelChange={setPasswordValue}
               labelValue={passwordValue}
               hasError={passwordError}
@@ -79,10 +76,9 @@ const Welcome = () => {
               errorText="Пароли должны совпадать"
               inputType="password"
               id="passwordAgain"
-              isRequired
               labelChange={setPasswordAgainValue}
               labelValue={passwordAgainValue}
-              hasError={passwordMatchError}
+              hasError={passwordAgainError}
             />
             <AppButton
               buttonText="Зарегистрироваться"
