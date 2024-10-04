@@ -1,6 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { AppButton } from "../components/AppButton";
 
 const StepOne = () => {
+  const [answerValue, setAnswerValue] = useState("");
+  const [answerError, setAnswerError] = useState(false);
+  const [checkBtn, setCheckBtn] = useState(true);
+
+  const answerRegex = /^[0-9]+$/;
+
+
+  const handleClick = () => {
+    if (!answerRegex.test(answerValue)) {
+      setAnswerError(true);
+    } else {
+      setAnswerError(false);
+    }
+  };
+
+  
+  useEffect(() => {
+    if (answerValue && !answerError) {
+      setCheckBtn(false);
+    } else {
+      setCheckBtn(true);
+    }
+  }, [answerValue, answerError]);
+
   return (
     <div className="container">
       <div className="wrapper">
@@ -27,14 +52,21 @@ const StepOne = () => {
                 type="text"
                 name="answer"
                 placeholder="Ваш ответ"
+                value={answerValue}
+                onChange={(e) => setAnswerValue(e.target.value)}
               />
-              <span id="error-message">
-                Введите номер в правильном формате например
-              </span>
+              {answerError && (
+                <span id="error-message" style={{ color: 'red' }}>
+                  Введите номер в правильном формате, например: 123
+                </span>
+              )}
             </label>
-            <button type="button" disabled id="next-btn">
-              Далее
-            </button>
+            <AppButton
+              buttonText="Далее"
+              isDisabled={checkBtn}
+              id="next-btn"
+              buttonClick={handleClick}
+            />
           </div>
         </div>
       </div>
