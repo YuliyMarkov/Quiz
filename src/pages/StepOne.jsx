@@ -1,23 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { AppButton } from "../components/AppButton";
+import { Header } from "../components/Header";
+import { AppLabel } from "../components/AppLabel";
 
 const StepOne = () => {
   const [answerValue, setAnswerValue] = useState("");
   const [answerError, setAnswerError] = useState(false);
   const [checkBtn, setCheckBtn] = useState(true);
 
-  const answerRegex = /^[0-9]+$/;
-
+  const checkWordCount = (text) => {
+    return text.trim().split(/\s+/).length >= 3;
+  };
 
   const handleClick = () => {
-    if (!answerRegex.test(answerValue)) {
+    if (!checkWordCount(answerValue)) {
       setAnswerError(true);
     } else {
       setAnswerError(false);
     }
   };
 
-  
   useEffect(() => {
     if (answerValue && !answerError) {
       setCheckBtn(false);
@@ -45,21 +47,22 @@ const StepOne = () => {
             </div>
           </div>
           <div className="question">
-            <h2>1. Занимательный вопрос</h2>
+            <Header
+              headerType="h2"
+              headerText="Какую цель вы хотите достичь с помощью нашего курса?"
+            />
             <label className="input-wrapper">
-              <input
-                required
-                type="text"
+              <AppLabel
+                id="quizanswer"
                 name="answer"
-                placeholder="Ваш ответ"
-                value={answerValue}
-                onChange={(e) => setAnswerValue(e.target.value)}
+                inputPlaceholder="Ваш ответ"
+                inputType="text"
+                isRequired={true}
+                labelValue={answerValue}
+                labelChange={setAnswerValue}
+                hasError={answerError}
+                errorText="Введите ответ, содержащий не менее 3 слов"
               />
-              {answerError && (
-                <span id="error-message" style={{ color: 'red' }}>
-                  Введите номер в правильном формате, например: 123
-                </span>
-              )}
             </label>
             <AppButton
               buttonText="Далее"
