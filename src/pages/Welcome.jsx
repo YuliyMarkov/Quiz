@@ -4,91 +4,70 @@ import { AppLabel } from "../components/AppLabel";
 import { AppButton } from "../components/AppButton";
 
 const Welcome = () => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Регулярное выражение для проверки email
-  const [emailValue, setEmailValue] = useState("");
-  const [passwordValue, setPasswordValue] = useState("");
-  const [passwordAgainValue, setPasswordAgainValue] = useState("");
+  const phoneRegex = /^\+?\d{1,4}?[\s-]?\(?\d{1,4}\)?[\s-]?\d{1,4}[\s-]?\d{1,4}[\s-]?\d{1,9}$/;
+  const nameRegex = /^[a-zA-Zа-яА-ЯёЁ]{1,20}$/;  
+  const [nameValue, setNameValue] = useState("");
+  const [phoneValue, setPhoneValue] = useState("");
 
-  const [emailError, setEmailError] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
-  const [passwordMatchError, setPasswordMatchError] = useState(false);
-
-  const [checkBtn, setCheckBtn] = useState(true);
+  const [checkBtn, setCheckBtn]=useState(true)
+  const [nameError, setNameError] = useState(false);
+  const [phoneError, setPhoneError] = useState(false);
 
   const handleClick = () => {
-    if (!emailRegex.test(emailValue)) {
-      setEmailError(true);
+    if (!nameRegex.test(nameValue)) {
+      setNameError(true);
     } else {
-      setEmailError(false);
+      setNameError(false);
     }
-
-    if (passwordValue.length < 8) {
-      setPasswordError(true);
+    if (!phoneRegex.test(phoneValue)) {
+      setPhoneError(true);
     } else {
-      setPasswordError(false);
-    }
-
-    // Проверка совпадения паролей
-    if (passwordValue !== passwordAgainValue) {
-      setPasswordMatchError(true);
-    } else {
-      setPasswordMatchError(false);
+      setPhoneError(false);
     }
   };
-
   useEffect(() => {
-    // Разблокировка кнопки, если все поля заполнены
-    if (emailValue && passwordValue && passwordAgainValue) {
-      setCheckBtn(false);
-    } else {
-      setCheckBtn(true);
+    if(nameValue && phoneValue){
+      setCheckBtn(false)
+    } else{
+      setCheckBtn(true)
     }
-  }, [emailValue, passwordValue, passwordAgainValue]);
+  }, [nameValue, phoneValue]);
 
   return (
     <div className="container">
       <div className="wrapper">
         <div className="welcome">
-          <Header headerText="Регистрация" headerType="h1" />
+          <Header
+            headerType="h1"
+            headerText="Добро пожаловать в квиз от лучшего учебного центра"
+          />
           <form className="welcome__form">
             <AppLabel
-              labelText="Введите адрес электронной почты"
-              inputPlaceholder="example@email.uz"
-              errorText="Введите корректный адрес электронной почты"
+              labelText="Ваше имя"
+              errorText="Введите имя в правильном формате"
+              id="username"
+              isRequired
+              inputPlaceholder="Иван Иванов"
               inputType="text"
-              id="email"
-              isRequired
-              labelChange={setEmailValue}
-              labelValue={emailValue}
-              hasError={emailError}
+              labelChange={setNameValue}
+              labelValue={nameValue}
+              hasError={nameError}
             />
-            <AppLabel
-              labelText="Введите пароль"
-              inputPlaceholder="Придумайте пароль"
-              errorText="Пароль должен быть не менее 8 символов"
-              inputType="password"
-              id="password"
-              isRequired
-              labelChange={setPasswordValue}
-              labelValue={passwordValue}
-              hasError={passwordError}
-            />
-            <AppLabel
-              labelText="Повторите пароль"
-              inputPlaceholder="Повторите пароль, который вы ввели выше"
-              errorText="Пароли должны совпадать"
-              inputType="password"
-              id="passwordAgain"
-              isRequired
-              labelChange={setPasswordAgainValue}
-              labelValue={passwordAgainValue}
-              hasError={passwordMatchError}
+            <AppLabel 
+            labelText="Ваш номер"
+            errorText="Введите номер в правильном формате, например"
+            id="phone"
+            inputPlaceholder="+998 9- --- -- --"
+            inputType="tel"
+            isRequired={true}
+            labelChange={setPhoneValue}
+            labelValue={phoneValue}
+            hasError={phoneError}
             />
             <AppButton
-              buttonText="Зарегистрироваться"
-              isDisabled={checkBtn}
-              id="next-btn"
-              buttonClick={handleClick}
+            buttonText="Далее"
+            isDisabled={checkBtn}
+            buttonClick={handleClick}
             />
           </form>
         </div>
