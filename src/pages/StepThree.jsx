@@ -1,24 +1,13 @@
 import React from "react";
+import { LinkButton } from "../components/LinkButton";
+import { ProgressBar } from "../components/ProgressBar";
 
 const StepThree = () => {
   return (
     <div className="container">
       <div className="wrapper">
         <div className="emoji-quiz">
-          <div className="indicator">
-            <div className="indicator__text">
-              <span className="indicator__description">
-                Скидка за прохождение опроса:
-              </span>
-              <span className="indicator__value">15%</span>
-            </div>
-            <div className="indicator__progressbar">
-              <div className="indicator__unit indicator__unit-1 _active"></div>
-              <div className="indicator__unit indicator__unit-2 _active"></div>
-              <div className="indicator__unit indicator__unit-3"></div>
-              <div className="indicator__unit indicator__unit-4"></div>
-            </div>
-          </div>
+          <ProgressBar currentStep={3} />
           <div className="question">
             <h2>3. Занимательный вопрос</h2>
             <ul className="emoji-variants">
@@ -51,9 +40,7 @@ const StepThree = () => {
                 </label>
               </li>
             </ul>
-            <button type="button" disabled id="next-btn">
-              Далее
-            </button>
+            <LinkButton path="step-four"/>
           </div>
         </div>
       </div>
