@@ -1,11 +1,19 @@
 import React from "react";
-import { AppButton } from "./AppButton";
 import { Link } from "react-router-dom";
+import { AppButton } from "./AppButton";
 
-export const LinkButton = ({ path, buttonText, ...props }) => {
+export const LinkButton = ({ path, buttonText, isDisabled, handleClick }) => {
+  const handleLinkClick = (e) => {
+    if (isDisabled) {
+      e.preventDefault();
+    } else {
+      handleClick();
+    }
+  };
+
   return (
-    <Link to={path} {...props}>
-      <AppButton buttonText={buttonText} />
+    <Link to={isDisabled ? "#" : path} onClick={handleLinkClick}>
+      <AppButton buttonText={buttonText} isDisabled={isDisabled} />
     </Link>
   );
 };

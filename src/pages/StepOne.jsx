@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { AppButton } from "../components/AppButton";
+import { LinkButton } from "../components/LinkButton";
 import { Header } from "../components/Header";
 import { AppLabel } from "../components/AppLabel";
 import { ProgressBar } from "../components/ProgressBar";
@@ -22,18 +22,19 @@ const StepOne = () => {
   };
 
   useEffect(() => {
-    if (answerValue && !answerError) {
+    if (checkWordCount(answerValue)) {
       setCheckBtn(false);
+      setAnswerError(false);
     } else {
       setCheckBtn(true);
     }
-  }, [answerValue, answerError]);
+  }, [answerValue]);
 
   return (
     <div className="container">
       <div className="wrapper">
         <div className="single-input-quiz">
-        <ProgressBar currentStep={1} />
+          <ProgressBar currentStep={1} />
           <div className="question">
             <Header
               headerType="h2"
@@ -52,11 +53,11 @@ const StepOne = () => {
                 errorText="Введите ответ, содержащий не менее 3 слов"
               />
             </label>
-            <AppButton
+            <LinkButton 
+              path="/step-two"
               buttonText="Далее"
               isDisabled={checkBtn}
-              id="next-btn"
-              buttonClick={handleClick}
+              handleClick={handleClick}
             />
           </div>
         </div>

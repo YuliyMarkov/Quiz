@@ -16,7 +16,7 @@ const Welcome = () => {
   const [phoneError, setPhoneError] = useState(false);
 
   const goToNextPage = () => {
-    navigate("/step-three");
+    navigate("/step-one");
   };
 
   const handleClick = () => {
@@ -70,7 +70,12 @@ const Welcome = () => {
               labelValue={phoneValue}
               hasError={phoneError}
             />
-            <LinkButton path="step-three" buttonText="Далее" />
+            <LinkButton 
+              path="/step-one"
+              buttonText="Далее"
+              isDisabled={checkBtn}
+              handleClick={handleClick}
+            />
           </form>
         </div>
       </div>
