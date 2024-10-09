@@ -1,46 +1,29 @@
 import React from "react";
-import { LinkButton } from "../components/LinkButton";
+import { useNavigate } from "react-router-dom";
 import { ProgressBar } from "../components/ProgressBar";
+import EmojiVariantsList from "../components/EmojiVariantsList";
+import { Header } from "../components/Header";
+import { LinkButton } from "../components/LinkButton";
 
 const StepThree = () => {
+  const navigate = useNavigate();
+
+  const handleNext = () => {
+    navigate("/step-four");
+  };
+
   return (
     <div className="container">
       <div className="wrapper">
         <div className="emoji-quiz">
+          <div className="question-block">
           <ProgressBar currentStep={3} />
-          <div className="question">
-            <h2>3. Занимательный вопрос</h2>
-            <ul className="emoji-variants">
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant" id="variant-1" />
-                <label htmlFor="variant-1">
-                  <img src="./img/laugh.png" alt="laugh" />
-                  <p>Ваш ответ 1</p>
-                </label>
-              </li>
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant" id="variant-2" />
-                <label htmlFor="variant-2">
-                  <img src="./img/hearts.png" alt="hearts" />
-                  <p>Ваш ответ 2</p>
-                </label>
-              </li>
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant" id="variant-3" />
-                <label htmlFor="variant-3">
-                  <img src="./img/smirk.png" alt="smirk" />
-                  <p>Ваш ответ 3</p>
-                </label>
-              </li>
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant" id="variant-4" />
-                <label htmlFor="variant-4">
-                  <img src="./img/fright.png" alt="fright" />
-                  <p>Ваш ответ 4</p>
-                </label>
-              </li>
-            </ul>
-            <LinkButton path="step-four"/>
+            <Header
+              headerType="h2"
+              headerText="1. Какая картинка лучше всего отображает ваши эмоции от потенциальных 3 2-часовых уроков в неделю?"
+            />
+            <EmojiVariantsList />
+            <LinkButton path="/step-four" buttonText="Далее" handleClick={handleNext} />
           </div>
         </div>
       </div>

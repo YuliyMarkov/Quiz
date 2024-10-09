@@ -193,6 +193,13 @@ button:enabled:active {
 .question h2 {
   margin-bottom: 32px;
 }
+
+.question-block {
+  margin-top: 250px;
+  margin-bottom: 32px;
+  
+}
+
 .question input[type=text] {
   margin-bottom: 32px;
 }

@@ -38,7 +38,7 @@ const StepOne = () => {
           <div className="question">
             <Header
               headerType="h2"
-              headerText="Какую цель вы хотите достичь с помощью нашего курса?"
+              headerText="1. Какую цель вы хотите достичь с помощью нашего курса?"
             />
             <label className="input-wrapper">
               <AppLabel
