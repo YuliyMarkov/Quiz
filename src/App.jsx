@@ -8,6 +8,7 @@ import StepTwo from "./pages/StepTwo";
 import StepThree from "./pages/StepThree";
 import StepFour from "./pages/StepFour";
 import Thanks from "./pages/Thanks";
+import { ThemeProvider } from "./contexts/ThemeProvider";
 
 const routerConfig = createBrowserRouter([
   {
@@ -42,9 +43,11 @@ const routerConfig = createBrowserRouter([
 
 const App = () => {
   return (
+    <ThemeProvider>
     <div className="App">
       <RouterProvider router={routerConfig} />
     </div>
+    </ThemeProvider>
   );
 };
 
