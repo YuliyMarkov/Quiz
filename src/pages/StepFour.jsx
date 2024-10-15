@@ -1,55 +1,54 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { ProgressBar } from "../components/ProgressBar";
 
 const StepFour = () => {
+  const navigate = useNavigate();
+  const [selectedOption, setSelectedOption] = useState(null);
+
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
+  const handleNextClick = () => {
+    navigate("/thanks");
+  };
+
   return (
     <div className="container">
       <div className="wrapper">
         <div className="emoji-quiz">
-          <div className="indicator">
-            <div className="indicator__text">
-              <span className="indicator__description">
-                Скидка за прохождение опроса:
-              </span>
-              <span className="indicator__value">15%</span>
-            </div>
-            <div className="indicator__progressbar">
-              <div className="indicator__unit indicator__unit-1 _active"></div>
-              <div className="indicator__unit indicator__unit-2 _active"></div>
-              <div className="indicator__unit indicator__unit-3 _active"></div>
-              <div className="indicator__unit indicator__unit-4"></div>
-            </div>
-          </div>
+          <ProgressBar currentStep={4} />
           <div className="question">
-            <h2>4. Занимательный вопрос</h2>
+            <h2>4. Мне влом придумывать вопрос. Это ведь не проблема?</h2>
             <ul className="level-variants">
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant" id="variant-1" />
-                <label htmlFor="variant-1">1</label>
-              </li>
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant" id="variant-2" />
-                <label htmlFor="variant-2">2</label>
-              </li>
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant" id="variant-3" />
-                <label htmlFor="variant-3">3</label>
-              </li>
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant" id="variant-4" />
-                <label htmlFor="variant-4">4</label>
-              </li>
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant" id="variant-5" />
-                <label htmlFor="variant-5">5</label>
-              </li>
+              {[1, 2, 3, 4, 5].map((num) => (
+                <li key={num} className="variant-wrapper">
+                  <input
+                    required
+                    type="radio"
+                    name="variant"
+                    id={`variant-${num}`}
+                    value={num}
+                    onChange={handleOptionChange}
+                  />
+                  <label htmlFor={`variant-${num}`}>{num}</label>
+                </li>
+              ))}
             </ul>
-            <button type="button" id="next-btn" disabled>
+
+            <button
+              type="button"
+              id="next-btn"
+              onClick={handleNextClick}
+              disabled={!selectedOption}
+            >
               Далее
             </button>
           </div>
         </div>
       </div>
-    </div>
+    </div> 
   );
 };
 

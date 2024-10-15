@@ -9,6 +9,7 @@ import StepThree from "./pages/StepThree";
 import StepFour from "./pages/StepFour";
 import Thanks from "./pages/Thanks";
 import { ThemeProvider } from "./contexts/ThemeProvider";
+import { CourseProvider } from "./contexts/CourseContext"; 
 
 const routerConfig = createBrowserRouter([
   {
@@ -44,9 +45,11 @@ const routerConfig = createBrowserRouter([
 const App = () => {
   return (
     <ThemeProvider>
-    <div className="App">
-      <RouterProvider router={routerConfig} />
-    </div>
+      <CourseProvider> 
+        <div className="App">
+          <RouterProvider router={routerConfig} />
+        </div>
+      </CourseProvider>
     </ThemeProvider>
   );
 };

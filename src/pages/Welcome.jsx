@@ -46,7 +46,7 @@ const Welcome = () => {
         <div className={`container ${theme === themes.dark ? "_dark" : ""}`}>
             <div className="wrapper">
                 <div className="welcome">
-                    <button onClick={toggleTheme}>Смена темы</button>
+                    {/* <button onClick={toggleTheme}>Смена темы</button> */}
                     <Header
                         headerType="h1"
                         headerText="Добро пожаловать в квиз от лучшего учебного центра"

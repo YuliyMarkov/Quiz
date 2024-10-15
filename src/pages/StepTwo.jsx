@@ -4,10 +4,12 @@ import { AnswerLabel } from "../components/AnswerLabel";
 import { Header } from "../components/Header";
 import { LinkButton } from "../components/LinkButton";
 import { useNavigate } from "react-router-dom";
+import { useCourse } from "../contexts/CourseContext";
 
 const StepTwo = () => {
   const navigate = useNavigate();
-  const [course, setCourse] = useState(null);
+  const { setCourse } = useCourse(); 
+  const [selectedCourse, setSelectedCourse] = useState(null);
   const variants = [
     { id: "variant-1", courseName: "Frontend" },
     { id: "variant-2", courseName: "Python" },
@@ -16,8 +18,9 @@ const StepTwo = () => {
   ];
 
   const handleNextClick = () => {
-    if (course) {
-      navigate("/step-three");
+    if (selectedCourse) {
+      setCourse(selectedCourse);
+      navigate("/step-three"); 
     }
   };
 
@@ -35,15 +38,15 @@ const StepTwo = () => {
                 id={elem.id}
                 answerLabel={elem.courseName}
                 key={elem.id}
-                labelChange={() => setCourse(elem.courseName)}
+                labelChange={() => setSelectedCourse(elem.courseName)} 
               />
             ))}
           </ul>
           <LinkButton 
             path="/step-three" 
             buttonText="Далее" 
-            isDisabled={!course} 
-            handleClick={handleNextClick}
+            isDisabled={!selectedCourse} 
+            handleClick={handleNextClick} 
           />
         </div>
       </div>
